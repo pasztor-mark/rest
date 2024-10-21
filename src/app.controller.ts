@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
 import { AppService } from './app.service';
+import { product } from './product.dto';
 
 @Controller()
 export class AppController {
@@ -18,6 +19,10 @@ export class AppController {
   @Get("products/:id")
   getProduct(@Param('id') id: string) {
     return this.products[Number(id)]
+  }
+  @Post("products")
+  newProduct(@Body() productsDto: product) {
+    this.products.push(productsDto.name)
   }
 }
 
